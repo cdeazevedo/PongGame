@@ -22,6 +22,7 @@ private:
 	sf::RenderWindow window;
 	Paddle paddle1;
 	Paddle paddle2;
+	Ball ball;
 	float deltaTime;
 
 };

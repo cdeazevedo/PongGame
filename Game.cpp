@@ -3,7 +3,7 @@
 
 
 // TODO: read in parameters from data
-Game::Game() : window(sf::VideoMode(800, 600), "Pong Game"), paddle1(50, 300), paddle2(730, 300), deltaTime(0.0f) {
+Game::Game() : window(sf::VideoMode(800, 600), "Pong Game"), paddle1(50, 300), paddle2(730, 300), ball(400,300,10, sf::Vector2f(-3,3)), deltaTime(0.0f) {
     // Initialize any other variables or settings here
     window.setFramerateLimit(60);
 }
@@ -28,9 +28,6 @@ void Game::processEvents()
         {
             window.close();
         }
-
-
-        
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
@@ -53,6 +50,7 @@ void Game::processEvents()
 void Game::update()
 {
     deltaTime = clock.restart().asSeconds();
+    ball.move();
 }
 
 void Game::render()
@@ -60,5 +58,6 @@ void Game::render()
     window.clear(backgroundColor);
     paddle1.draw(window);
     paddle2.draw(window);
+    ball.draw(window);
     window.display();
 }
