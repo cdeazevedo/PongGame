@@ -12,6 +12,6 @@ public:
 	void move(moveDirection direction, float deltatTime);
 private:
 	sf::RectangleShape shape;
-	float SPEED = 5;
-	const float PADDLE_SPEED = 200.0f;
+	float SPEED = 5; // should be read in from data
+	const float PADDLE_SPEED = 200.0f; // should be read in from data
 };

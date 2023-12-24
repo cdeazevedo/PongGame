@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-
+// TODO: read in parameters from data
 Game::Game() : window(sf::VideoMode(800, 600), "Pong Game"), paddle1(50, 300), paddle2(730, 300), deltaTime(0.0f) {
     // Initialize any other variables or settings here
     window.setFramerateLimit(60);

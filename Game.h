@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Paddle.h"
+#include "Ball.h"
 //Game class that manages the main game loop, window creation, event handling, and drawing.
 // Inside the game loop, update and render instances of the Paddle class.
 // The window should close when the user clicks the close button.
