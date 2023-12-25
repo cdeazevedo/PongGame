@@ -1,6 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-
+#include "Paddle.h"
 class Ball
 {
 public:
@@ -8,9 +8,8 @@ public:
 	void update();
 	void draw(sf::RenderWindow& window);
 	void move();
-
-private:
 	sf::CircleShape shape;
+
 	float SPEED = 15;
-	sf::Vector2f initialVelocity;
+	sf::Vector2f velocity;
 };

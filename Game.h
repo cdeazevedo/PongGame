@@ -11,18 +11,27 @@ class Game
 public:
 	Game();
 	void run();
+
 private:
-	sf::Clock clock;
+	
 	void processEvents();
 	void update();
 	void render();
-
+	void sCollisions();
+	void score(std::string player);
 private:
 	sf::Color backgroundColor;
 	sf::RenderWindow window;
+	sf::Font myFont;
+	sf::Clock clock;
+	sf::Text playerOneScoreText;
+	sf::Text playerTwoScoreText;
 	Paddle paddle1;
 	Paddle paddle2;
 	Ball ball;
 	float deltaTime;
-
+	int playerOneScore = 0;
+	int playerTwoScore = 0;
+	
 };
+

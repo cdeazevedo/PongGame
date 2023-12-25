@@ -1,7 +1,7 @@
 #include "Ball.h"
-
+#include <iostream>
 Ball::Ball(float startX, float startY, float radius, sf::Vector2f velocity)
- :initialVelocity(velocity)
+ :velocity(velocity)
 {
 	shape.setPosition(startX, startY);
 	shape.setRadius(radius);
@@ -18,7 +18,10 @@ void Ball::draw(sf::RenderWindow& window)
 }
 
 void Ball::move()
-{
-	shape.move(initialVelocity);
-
+{   //TODO: a lot of this stuff should be in collision detection and handled by game.
+	//TODO: make boundary objects that are invisible
+	shape.move(velocity);
+	
 }
+
+
