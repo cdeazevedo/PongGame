@@ -3,24 +3,30 @@
 
 
 // TODO: read in parameters from data
-Game::Game() : window(sf::VideoMode(800, 600), "Pong Game"), paddle1(50, 300), paddle2(730, 300), ball(400,300,10, sf::Vector2f(-3,3)), deltaTime(0.0f) {
+Game::Game() : window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Pong Game"), paddle1(50, 300), paddle2(730, 300), ball(400,300,10, sf::Vector2f(-3,3)), deltaTime(0.0f) {
     // Initialize any other variables or settings here
     window.setFramerateLimit(60);
-    if (!myFont.loadFromFile("pong-score.ttf"))
+    if (!scoreFont.loadFromFile("pong-score.ttf"))
     {
-        std::cerr << "Font failed to load";
+        std::cerr << "Score font failed to load";
     }
-    playerOneScoreText.setFont(myFont);
+    playerOneScoreText.setFont(scoreFont);
     playerOneScoreText.setString(std::to_string(playerOneScore));
     playerOneScoreText.setPosition(350, 30);
     playerOneScoreText.setFillColor(sf::Color::Cyan);
     
 
-    playerTwoScoreText.setFont(myFont);
+    playerTwoScoreText.setFont(scoreFont);
     playerTwoScoreText.setString(std::to_string(playerTwoScore));
     playerTwoScoreText.setPosition(450, 30);
     playerTwoScoreText.setFillColor(sf::Color::Cyan);
     
+    if (!welcomeFont.loadFromFile("tech.ttf"))
+    {
+        std::cerr << "Welcome font failed to laod";
+    }
+    welcomeText.setFont(welcomeFont);
+    currentState = start;
     
 }
 
@@ -28,14 +34,36 @@ void Game::run()
 {
     while (window.isOpen())
     {
-        processEvents();
-        sCollisions();
-        update();
-        render();
+        switch (currentState)
+        {
+        case start:
+            processStartEvents();
+            updateStartEvents();
+            renderStartEvents();
+            break;
+        case active:
+            processActiveEvents();
+            updateActiveEvents();
+            renderActiveEvents();
+            sCollisions();
+            break;
+        case inactive:
+            break;
+        default:
+            break;
+        }
+       // processEvents();
+        
+        /*update();
+        render()*/;
     }
 }
 
-void Game::processEvents()
+void Game::processStartEvents()
+{
+}
+
+void Game::processActiveEvents()
 {
     sf::Event event;
     while (window.pollEvent(event))
@@ -64,15 +92,52 @@ void Game::processEvents()
     }
 }
 
-void Game::update()
+void Game::processScoreEvents()
+{
+}
+
+void Game::updateStartEvents()
+{
+    sf::Event event;
+    while (window.pollEvent(event))
+    {
+        if (event.type == sf::Event::Closed)
+        {
+            window.close();
+        }
+    }
+}
+
+void Game::updateActiveEvents()
 {
     deltaTime = clock.restart().asSeconds();
 
     ball.move();
 }
 
-void Game::render()
+void Game::updateScoreEvents()
 {
+    
+}
+
+void Game::renderStartEvents()
+{
+    
+    
+    welcomeText.setString("Welcome to Pong\nPress SPACEBAR to play.");
+    
+ 
+    window.clear(backgroundColor);
+    
+    window.draw(welcomeText);
+    window.display();
+    
+    
+}
+
+void Game::renderActiveEvents()
+{
+    
     window.clear(backgroundColor);
     paddle1.draw(window);
     paddle2.draw(window);
@@ -82,8 +147,13 @@ void Game::render()
     window.display();
 }
 
+void Game::renderScoreEvents()
+{
+}
+
 void Game::sCollisions()
 {
+    // TODO: get all these numbers outa here and calcualte based on screen size data.
     //ball collisions with world
     if (ball.shape.getPosition().x <= 0) // hits left wall , score player 2
     {
@@ -98,7 +168,7 @@ void Game::sCollisions()
     {
         ball.velocity.y *= -1;
     }
-    if (ball.shape.getPosition().y >= 600 - 2 * ball.shape.getRadius()) //hits bottom, bounces
+    if (ball.shape.getPosition().y >= 600 - 2 * ball.shape.getRadius()) // hits bottom, bounces
     {
         ball.velocity.y *= -1;
     }

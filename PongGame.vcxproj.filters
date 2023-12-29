@@ -42,4 +42,7 @@
   <ItemGroup>
     <CopyFileToFolders Include="..\pong-score.ttf" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\sfml_test\fonts\tech.ttf" />
+  </ItemGroup>
 </Project>
